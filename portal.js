@@ -290,7 +290,7 @@
     backBtn.hidden = true;
     app.replaceChildren(h('div', { class: 'loading' }, 'Carregando…'));
     const farms = await api('/api/farms');
-    const hero = guide(['campo-infraestrutura', 'administrativo', 'coordenador', 'fabrica', 'reducando', 'packing'], 'Benefícios Jaguacy', 'Escolha a sua localidade para ver os benefícios.', 'h1', 'hero');
+    const hero = guide(['campo-infraestrutura', 'administrativo', 'coordenador', 'fabrica', 'packing'], 'Benefícios Jaguacy', 'Escolha a sua localidade para ver os benefícios.', 'h1', 'hero');
     const welcome = farms[0] && farms[0].welcome_audio;
     if (welcome) hero.append(voiceButton(welcome, 'Ouvir as boas-vindas'));
     app.replaceChildren(
