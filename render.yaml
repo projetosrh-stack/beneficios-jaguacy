@@ -1,0 +1,32 @@
+# Modelo de publicação para a plataforma Render (https://render.com), usando o Dockerfile do projeto.
+# Os campos "sync: false" são preenchidos por VOCÊ no painel da plataforma (nunca grave senhas/chaves aqui).
+# Disco persistente exige plano pago; confirme o preço atual no site antes de contratar.
+services:
+  - type: web
+    name: beneficios-jaguacy
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    disk:
+      name: dados
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: DATA_DIR
+        value: /data
+      - key: SECURE_COOKIES
+        value: "true"
+      - key: LLM_PROVIDER
+        value: anthropic
+      - key: TTS_PROVIDER
+        value: openai
+      - key: FRAME_ANCESTORS
+        sync: false        # endereço da Humand da Jaguacy, ex.: https://app.humand.co
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
