@@ -144,3 +144,8 @@ details.more p { margin: 0; white-space: pre-wrap; font-size: .94rem; }
 .mini .gl, .mini svg { width: 28px; height: 28px; fill: currentColor; stroke: none; }
 .mini.on { background: var(--g700); }
 @media (min-width: 1000px) { .mini { min-width: 72px; min-height: 72px; } .mini svg { width: 32px; height: 32px; } }
+/* Botões de voz na tela inicial */
+.tilewrap { display: flex; gap: 8px; align-items: stretch; }
+.tilewrap .tile { flex: 1; min-width: 0; }
+.tilewrap .mini { min-height: 0; align-self: stretch; }
+.hero .mini { align-self: center; }

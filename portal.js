@@ -261,21 +261,47 @@
     return h('div', { class: 'empty' }, guide('estou-de-olho', title, text), h('a', { class: 'btn', href: '#/' }, '← Escolher outra localidade'));
   }
 
+  // Botão "Ouvir" curto (nome da localidade, boas-vindas). Só aparece no site publicado, que tem esses áudios.
+  function voiceButton(url, aria) {
+    const audio = new Audio();
+    audio.preload = 'none';
+    audio.src = url;
+    const ico = h('span');
+    const lbl = h('span');
+    const btn = h('button', { class: 'mini', type: 'button', 'aria-label': aria }, ico, lbl);
+    const set = (on) => { ico.replaceChildren(icon(on ? ICONS.pause : ICONS.speaker)); lbl.textContent = on ? 'Parar' : 'Ouvir'; btn.classList.toggle('on', on); };
+    set(false);
+    const self = { audio, reset: () => { audio.currentTime = 0; set(false); } };
+    btn.addEventListener('click', () => {
+      if (!audio.paused) { audio.pause(); self.reset(); if (current === self) current = null; return; }
+      if (current && current !== self) stopCurrent();
+      current = self;
+      audio.play().then(() => set(true)).catch(() => set(false));
+    });
+    audio.addEventListener('ended', () => set(false));
+    return btn;
+  }
+
   // ---------- telas ----------
   async function viewHome() {
     backBtn.hidden = true;
     app.replaceChildren(h('div', { class: 'loading' }, 'Carregando…'));
     const farms = await api('/api/farms');
+    const hero = guide(['campo-infraestrutura', 'administrativo', 'coordenador', 'fabrica', 'reducando', 'packing'], 'Benefícios Jaguacy', 'Escolha a sua localidade para ver os benefícios.', 'h1', 'hero');
+    const welcome = farms[0] && farms[0].welcome_audio;
+    if (welcome) hero.append(voiceButton(welcome, 'Ouvir as boas-vindas'));
     app.replaceChildren(
-      guide(['campo-infraestrutura', 'administrativo', 'coordenador', 'fabrica', 'reducando', 'packing'], 'Benefícios Jaguacy', 'Escolha a sua localidade para ver os benefícios.', 'h1', 'hero'),
+      hero,
       h('div', { class: 'farm-grid', role: 'list' }, farms.map((f) =>
-        h('a', { class: 'tile farm', role: 'listitem', href: `#/f/${f.slug}`, 'aria-label': `${f.name}. ${f.total ? f.total + ' benefícios' : 'Em breve'}` },
-          h('span', { class: 'ico' }, glyph('farm')),
-          h('span', { class: 'tname' }, f.city),
-          h('span', { class: 'tsub' }, f.unit_name || (f.name_confirmed ? '' : 'Nome a confirmar')),
-          h('span', { class: 'tfoot' },
-            f.total ? h('span', { class: 'badge' }, `${f.total} ${f.total === 1 ? 'benefício' : 'benefícios'}`) : h('span', { class: 'badge soon' }, 'Em breve'),
-            h('span', { class: 'go', 'aria-hidden': 'true' }, glyph('arrow')))))));
+        h('div', { class: 'tilewrap', role: 'listitem' },
+          h('a', { class: 'tile farm', href: `#/f/${f.slug}`, 'aria-label': `${f.name}. ${f.total ? f.total + ' benefícios' : 'Em breve'}` },
+            h('span', { class: 'ico' }, glyph('farm')),
+            h('span', { class: 'tname' }, f.city),
+            h('span', { class: 'tsub' }, f.unit_name || (f.name_confirmed ? '' : 'Nome a confirmar')),
+            h('span', { class: 'tfoot' },
+              f.total ? h('span', { class: 'badge' }, `${f.total} ${f.total === 1 ? 'benefício' : 'benefícios'}`) : h('span', { class: 'badge soon' }, 'Em breve'),
+              h('span', { class: 'go', 'aria-hidden': 'true' }, glyph('arrow')))),
+          f.voice ? voiceButton(f.voice, `Ouvir o nome: ${f.name}`) : null))));
   }
 
   // rota: #/f/<slug>            -> grupos (categorias)
