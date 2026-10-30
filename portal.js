@@ -6,7 +6,9 @@
   // Caminhos relativos: funcionam na raiz do servidor e também em subpasta (ex.: GitHub Pages).
   const CH = (n) => `p-${n}.png`;
   // Versão estática (site exportado): os dados vêm de arquivos .json em vez da API.
-  const STATIC = !!document.querySelector('meta[name="jgc-static"]');
+  const STATIC_META = document.querySelector('meta[name="jgc-static"]');
+  const STATIC = !!STATIC_META;
+  const BUILD = STATIC ? STATIC_META.content : ''; // muda a cada exportação: evita ver dados antigos guardados no navegador
   const SVG_NS = 'http://www.w3.org/2000/svg';
 
   // ---------- utilidades ----------
@@ -35,6 +37,7 @@
   };
   async function api(path) {
     if (STATIC) path = path.replace(/^\/api\/farms$/, 'farms.json').replace(/^\/api\/farms\/([^/?]+)\/benefits.*$/, 'data-$1.json');
+    if (STATIC) path += `?v=${BUILD}`;
     const res = await fetch(path, { credentials: 'same-origin' });
     if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Não foi possível carregar.');
     return res.json();
