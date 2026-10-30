@@ -1,4 +1,4 @@
-﻿/* Portal do colaborador — visual sóbrio: superfícies planas, bordas finas, poucos efeitos */
+/* Portal do colaborador — visual sóbrio: superfícies planas, bordas finas, poucos efeitos */
 .preview-banner { background: #1f2a44; color: #fff; text-align: center; padding: .5rem 1rem; font-weight: 600; font-size: .9rem; }
 
 .top { background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
@@ -113,3 +113,27 @@ details.more p { margin: 0; white-space: pre-wrap; font-size: .94rem; }
 .guide .crew img:first-child { margin-left: 0; }
 .guide .crew img:nth-child(odd) { z-index: 1; }
 @media (max-width: 700px) { .guide .crew img { height: 96px; margin-left: -18px; } .guide .crew img:nth-child(n+4) { display: none; } }
+
+/* Telas largas (computador / Humand no navegador): conteúdo maior e mais largo */
+@media (min-width: 1000px) {
+  html { font-size: 21px; }
+  html.fs-1 { font-size: 23px; }
+  html.fs-2 { font-size: 26px; }
+  main, .top-inner { max-width: 1240px; }
+  .brand img { height: 68px; }
+  .guide { padding: 18px 26px; }
+  .guide img { width: 92px; }
+  .hero img { width: 110px; }
+  .guide .crew img { height: 168px; margin-left: -28px; }
+  .bubble h1, .bubble h2 { font-size: 1.7rem; }
+  .hero .bubble h1 { font-size: 2rem; }
+  .bubble p { font-size: 1.1rem; }
+  .farm-grid, .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .tile { min-height: 92px; padding: 14px 20px; grid-template-columns: 56px 1fr auto; }
+  .tile .ico { width: 56px; height: 56px; }
+  .tile .ico .gl { width: 30px; height: 30px; }
+  .tile .tname { font-size: 1.25rem; }
+  .tile .tsub { font-size: .95rem; }
+  .list { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .searchbar input { min-height: 60px; font-size: 1.1rem; }
+}
