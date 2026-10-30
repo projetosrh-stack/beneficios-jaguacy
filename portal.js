@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 (function () {
   const app = document.getElementById('app');
   const params = new URLSearchParams(location.search);
@@ -229,7 +229,7 @@
   // Cada localidade é recebida por um personagem diferente (só decoração; troque à vontade).
   const FARM_CHAR = {
     arealva: 'campo-infraestrutura', avai: 'packing', bauru: 'administrativo', fartura: 'fabrica',
-    'rocas-sales': 'oficina', timburi: 'laboratorio', tejupa: 'modelo-de-gestao', box: 'encarregado-de-pessoal',
+    'rocas-sales': 'oficina', timburi: 'coordenador', tejupa: 'modelo-de-gestao', box: 'encarregado-de-pessoal',
   };
   function guide(img, title, text, tag = 'h2', extra = '') {
     return h('div', { class: 'guide ' + extra },
