@@ -1,0 +1,115 @@
+﻿/* Portal do colaborador — visual sóbrio: superfícies planas, bordas finas, poucos efeitos */
+.preview-banner { background: #1f2a44; color: #fff; text-align: center; padding: .5rem 1rem; font-weight: 600; font-size: .9rem; }
+
+.top { background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
+.preview-banner:not([hidden]) ~ .top { position: static; }
+.top-inner { max-width: 960px; margin: 0 auto; padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+.brand { display: flex; align-items: center; gap: .5rem; color: var(--g800); text-decoration: none; font-weight: 700; font-size: 1.25rem; letter-spacing: .2px; }
+.brand img { height: 58px; width: auto; display: block; }
+.brand svg { width: 30px; height: 30px; }
+.top-actions { display: flex; gap: .4rem; }
+
+main { max-width: 960px; margin: 0 auto; padding: 22px 16px 48px; outline: none; }
+.foot { text-align: center; color: var(--muted); font-size: .8rem; padding: 0 16px 28px; }
+
+/* Abertura de cada tela: personagem + texto, sem balão */
+.guide { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; padding: 14px 18px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
+.guide img { width: 72px; height: auto; flex: none; align-self: flex-end; margin-bottom: -14px; }
+.bubble { flex: 1; }
+.bubble h1, .bubble h2 { font-size: 1.35rem; font-weight: 700; margin: 0 0 .15rem; }
+.bubble p { margin: 0; color: var(--muted); font-size: 1rem; }
+.hero { background: var(--g100); border-color: transparent; }
+.hero img { width: 92px; }
+.hero .bubble h1 { font-size: 1.6rem; }
+
+/* Lista de fazendas e de grupos: linhas compactas */
+.farm-grid, .cat-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+.tile { display: grid; grid-template-columns: 44px 1fr auto; grid-template-areas: "ico name foot" "ico sub foot"; column-gap: 14px; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 16px; min-height: 72px; color: var(--text); text-decoration: none; cursor: pointer; transition: border-color .15s, background .15s; }
+.tile:hover { border-color: var(--g700); background: #fbfdf9; }
+.tile .ico { grid-area: ico; width: 44px; height: 44px; border-radius: 10px; background: var(--g100); color: var(--g800); display: flex; align-items: center; justify-content: center; }
+.tile .ico .gl { width: 24px; height: 24px; }
+.tile .tname { grid-area: name; font-size: 1.1rem; font-weight: 700; color: var(--g900); line-height: 1.2; align-self: end; }
+.tile .tsub { grid-area: sub; color: var(--muted); font-size: .88rem; line-height: 1.2; align-self: start; }
+.tile .tfoot { grid-area: foot; display: flex; align-items: center; gap: 10px; }
+.go { color: var(--g700); display: inline-flex; }
+.go .gl { width: 22px; height: 22px; }
+.badge { background: transparent; color: var(--g800); border: 1px solid var(--g200); border-radius: 999px; padding: 1px 10px; font-weight: 600; font-size: .8rem; white-space: nowrap; }
+.badge.soon { color: #7a5a14; border-color: #e6d49b; background: #fbf6e4; }
+.badge.draft { color: #1f2a44; border-color: #b9c2dd; background: #eef1fa; }
+
+.searchbar { margin: 0 0 16px; }
+.searchbar input { width: 100%; min-height: 52px; border-radius: 12px; border: 1px solid #9db39f; padding: 0 16px; font-size: 1rem; background: #fff; }
+.searchbar input:focus { border-color: var(--g700); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.chips .chip { min-height: 40px; font-size: .92rem; }
+
+.list { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+.card { background: #fff; border-radius: var(--radius); border: 1px solid var(--line); overflow: hidden; display: flex; flex-direction: column; }
+.card .pic { aspect-ratio: 5 / 2; background: #eef3ea; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.card .pic img { width: 100%; height: 100%; object-fit: cover; }
+.card .pic .gl.big { width: 44px; height: 44px; stroke-width: 1.5; color: #7fa283; }
+.card .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.card h3 { font-size: 1.12rem; font-weight: 700; margin: 2px 0 0; }
+.cat-tag { display: flex; align-items: center; gap: .35rem; color: var(--g700); font-weight: 600; font-size: .8rem; text-transform: uppercase; letter-spacing: .6px; }
+.cat-tag .gl { width: 16px; height: 16px; }
+.facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: .96rem; }
+.facts li { display: flex; gap: 10px; align-items: flex-start; }
+.facts .fi { color: var(--g700); flex: none; padding-top: 2px; }
+.facts .fi .gl { width: 19px; height: 19px; }
+.facts b { color: var(--g900); font-weight: 600; }
+.missing { display: flex; gap: 10px; align-items: flex-start; background: var(--warn-bg); border-radius: 10px; padding: 9px 12px; font-size: .9rem; color: #5b3b05; }
+.missing .gl { width: 19px; height: 19px; margin-top: 1px; }
+
+.listen { width: 100%; min-height: 54px; font-size: 1rem; letter-spacing: .3px; border-radius: 12px; }
+.listen svg { width: 24px; height: 24px; flex: none; }
+.player { display: grid; gap: 8px; }
+.player .row { display: flex; gap: 8px; }
+.player .row .btn { flex: 1; min-height: 44px; font-size: .9rem; }
+.progress { height: 6px; background: var(--g100); border-radius: 999px; overflow: hidden; }
+.progress > div { height: 100%; width: 0; background: var(--g700); }
+.eq { display: none; gap: 3px; align-items: flex-end; height: 18px; }
+.playing .eq { display: inline-flex; }
+.eq i { width: 4px; background: #fff; border-radius: 2px; animation: eq .9s ease-in-out infinite; height: 5px; }
+.eq i:nth-child(2) { animation-delay: .2s; } .eq i:nth-child(3) { animation-delay: .4s; }
+@keyframes eq { 0%,100% { height: 4px; } 50% { height: 18px; } }
+.status { font-weight: 600; font-size: .88rem; color: var(--g800); min-height: 1.2em; }
+.status.err { color: var(--err); }
+
+details.more { border-top: 1px solid var(--line); padding-top: 4px; }
+details.more summary { cursor: pointer; font-weight: 600; font-size: .92rem; color: var(--g800); min-height: 44px; display: flex; align-items: center; }
+details.more summary .gl { width: 18px; height: 18px; margin-right: .5rem; }
+details.more h4 { margin: 12px 0 2px; color: var(--g900); font-size: .9rem; }
+details.more p { margin: 0; white-space: pre-wrap; font-size: .94rem; }
+.upd { color: var(--muted); font-size: .8rem; }
+
+.empty { text-align: center; padding: 6px 0 28px; }
+.empty .guide { text-align: left; }
+.loading, .error { padding: 40px 10px; text-align: center; font-weight: 600; color: var(--muted); }
+.error { color: var(--err); }
+.gl { width: 1.25em; height: 1.25em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.chip { display: inline-flex; align-items: center; gap: .4rem; }
+
+@media (max-width: 560px) {
+  main { padding-top: 16px; }
+  .guide { padding: 12px 14px; gap: 12px; }
+  .guide img { width: 60px; }
+  .hero img { width: 76px; }
+  .bubble h1, .bubble h2 { font-size: 1.15rem; }
+  .hero .bubble h1 { font-size: 1.3rem; }
+  .bubble p { font-size: .92rem; }
+  .farm-grid, .cat-grid, .list { grid-template-columns: 1fr; }
+  .brand img { height: 40px; }
+}
+
+/* Botões secundários do player: pequenos e em uma linha */
+.player .row { justify-content: flex-start; }
+.player .row .btn { flex: none; min-height: 38px; padding: .2rem .8rem; font-size: .85rem; font-weight: 600; white-space: nowrap; border-radius: 10px; }
+.player .row .btn svg { width: 16px; height: 16px; }
+.listen { min-height: 50px; }
+
+/* Grupo de personagens na abertura */
+.crew { display: flex; align-items: flex-end; flex: none; margin-bottom: -14px; }
+.guide .crew img { width: auto; height: 128px; margin: 0 0 0 -22px; align-self: flex-end; position: relative; }
+.guide .crew img:first-child { margin-left: 0; }
+.guide .crew img:nth-child(odd) { z-index: 1; }
+@media (max-width: 700px) { .guide .crew img { height: 96px; margin-left: -18px; } .guide .crew img:nth-child(n+4) { display: none; } }
