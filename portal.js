@@ -161,6 +161,12 @@
       audio.playbackRate = RATES[rateIdx]; showRate();
     });
     const wrap = h('div', { class: 'player' }, main, progress, h('div', { class: 'row' }, again, speed), status);
+    // Botão de áudio ao lado do nome do benefício (para quem não lê): usa o mesmo áudio do botão grande.
+    const miniIco = h('span');
+    const miniLbl = h('span');
+    const mini = h('button', { class: 'mini', type: 'button' }, miniIco, miniLbl);
+    mini.addEventListener('click', () => main.click());
+    wrap.mini = mini;
 
     function view(state) {
       wrap.classList.toggle('playing', state === 'playing');
@@ -175,6 +181,10 @@
       ico.replaceChildren(icon(p));
       label.textContent = t;
       main.setAttribute('aria-label', aria);
+      miniIco.replaceChildren(icon(p));
+      miniLbl.textContent = { playing: 'Pausar', paused: 'Continuar', ended: 'Ouvir', loading: '...', idle: 'Ouvir' }[state];
+      mini.setAttribute('aria-label', aria);
+      mini.classList.toggle('on', state === 'playing');
       again.hidden = !(state === 'paused' || state === 'playing');
       progress.hidden = state === 'idle';
       status.className = 'status';
@@ -235,14 +245,15 @@
     more.push(h('h4', null, 'Texto oficial'), h('p', null, b.official_description));
     if (b.usage_rules) more.push(h('h4', null, 'Regras de uso'), h('p', null, b.usage_rules));
     if (b.conditions) more.push(h('h4', null, 'Condições e observações'), h('p', null, b.conditions));
+    const player = b.audio_url ? audioPlayer(b) : null;
     const pic = h('div', { class: 'pic' }, b.image_url ? h('img', { src: b.image_url, alt: '', loading: 'lazy' }) : catGlyph(b.category, 'big'));
     return h('article', { class: 'card', 'aria-label': b.name },
       pic,
       h('div', { class: 'body' },
         b.status && b.status !== 'published' ? h('span', { class: 'badge draft' }, `NÃO PUBLICADO · ${({ draft: 'Rascunho', review: 'Em revisão', rejected: 'Rejeitado' })[b.status] || b.status}`) : null,
-        h('div', null, h('div', { class: 'cat-tag' }, catGlyph(b.category), b.category), h('h3', null, b.name)),
+        h('div', { class: 'titlerow' }, h('div', null, h('div', { class: 'cat-tag' }, catGlyph(b.category), b.category), h('h3', null, b.name)), player ? player.mini : null),
         facts.length ? h('ul', { class: 'facts' }, facts.map(([k, v]) => h('li', null, h('span', { class: 'fi' }, glyph(FACT_ICONS[k] || 'info')), h('span', null, k ? h('b', null, k + ': ') : null, v)))) : null,
-        b.audio_url ? audioPlayer(b) : h('div', { class: 'missing' }, glyph('mute'), h('span', null, 'O áudio deste benefício ainda não está disponível.')),
+        player || h('div', { class: 'missing' }, glyph('mute'), h('span', null, 'O áudio deste benefício ainda não está disponível.')),
         h('details', { class: 'more' }, h('summary', null, glyph('plus'), 'Mais informações e texto oficial'), more, h('p', { class: 'upd' }, `Atualizado em ${fmtDate(b.updated_at)}`))));
   }
 

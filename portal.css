@@ -137,3 +137,10 @@ details.more p { margin: 0; white-space: pre-wrap; font-size: .94rem; }
   .list { grid-template-columns: repeat(3, 1fr); gap: 18px; }
   .searchbar input { min-height: 60px; font-size: 1.1rem; }
 }
+/* Botão de áudio ao lado do nome do benefício */
+.titlerow { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; }
+.mini { flex: none; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-width: 64px; min-height: 64px; padding: 6px 8px; border-radius: 16px; border: 0; background: var(--g800); color: #fff; font-weight: 700; font-size: .8rem; cursor: pointer; }
+.mini:hover { background: var(--g900); }
+.mini .gl, .mini svg { width: 28px; height: 28px; fill: currentColor; stroke: none; }
+.mini.on { background: var(--g700); }
+@media (min-width: 1000px) { .mini { min-width: 72px; min-height: 72px; } .mini svg { width: 32px; height: 32px; } }
