@@ -312,7 +312,7 @@
   async function viewFarm(slug, cat) {
     backBtn.hidden = false;
     app.replaceChildren(h('div', { class: 'loading' }, 'Carregando…'));
-    const { farm, categories, benefits } = await api(`/api/farms/${encodeURIComponent(slug)}/benefits${PREVIEW ? '?preview=1' : ''}`);
+    const { farm, categories, benefits, voices } = await api(`/api/farms/${encodeURIComponent(slug)}/benefits${PREVIEW ? '?preview=1' : ''}`);
     document.title = `${farm.name} · Benefícios Jaguacy`;
     if (!benefits.length) {
       app.replaceChildren(emptyState(`Ainda não há benefícios em ${farm.name}`, 'Os benefícios desta localidade serão publicados em breve. Pergunte ao RH da sua localidade.'));
@@ -332,12 +332,16 @@
       if (!inList && !term) {
         countMsg.textContent = '';
         results.replaceChildren(h('div', { class: 'cat-grid', role: 'list' }, [
-          ...categories.map((c) => h('a', { class: 'tile', role: 'listitem', href: `${base}/c/${encodeURIComponent(c.name)}` },
-            h('span', { class: 'ico' }, catGlyph(c.name)), h('span', { class: 'tname' }, c.name),
-            h('span', { class: 'tfoot' }, h('span', { class: 'badge' }, `${c.count} ${c.count === 1 ? 'benefício' : 'benefícios'}`), h('span', { class: 'go', 'aria-hidden': 'true' }, glyph('arrow'))))),
-          categories.length > 1 ? h('a', { class: 'tile', role: 'listitem', href: `${base}/c/${encodeURIComponent('*')}` },
-            h('span', { class: 'ico' }, glyph('list')), h('span', { class: 'tname' }, 'Ver todos'),
-            h('span', { class: 'tfoot' }, h('span', { class: 'badge' }, `${benefits.length} no total`), h('span', { class: 'go', 'aria-hidden': 'true' }, glyph('arrow')))) : null]));
+          ...categories.map((c) => h('div', { class: 'tilewrap', role: 'listitem' },
+            h('a', { class: 'tile', href: `${base}/c/${encodeURIComponent(c.name)}` },
+              h('span', { class: 'ico' }, catGlyph(c.name)), h('span', { class: 'tname' }, c.name),
+              h('span', { class: 'tfoot' }, h('span', { class: 'badge' }, `${c.count} ${c.count === 1 ? 'benefício' : 'benefícios'}`), h('span', { class: 'go', 'aria-hidden': 'true' }, glyph('arrow')))),
+            c.voice ? voiceButton(c.voice, `Ouvir o nome do grupo: ${c.name}`) : null)),
+          categories.length > 1 ? h('div', { class: 'tilewrap', role: 'listitem' },
+            h('a', { class: 'tile', href: `${base}/c/${encodeURIComponent('*')}` },
+              h('span', { class: 'ico' }, glyph('list')), h('span', { class: 'tname' }, 'Ver todos'),
+              h('span', { class: 'tfoot' }, h('span', { class: 'badge' }, `${benefits.length} no total`), h('span', { class: 'go', 'aria-hidden': 'true' }, glyph('arrow')))),
+            voices && voices.all ? voiceButton(voices.all, 'Ouvir: ver todos os benefícios') : null) : null]));
         return;
       }
       countMsg.textContent = term ? `${list.length} ${list.length === 1 ? 'resultado' : 'resultados'}` : '';
@@ -351,9 +355,9 @@
       h('a', { class: 'chip' + (!group ? ' on' : ''), href: `${base}/c/${encodeURIComponent('*')}`, 'aria-current': !group ? 'page' : false }, 'Todos'),
       ...categories.map((c) => h('a', { class: 'chip' + (group === c.name ? ' on' : ''), href: `${base}/c/${encodeURIComponent(c.name)}`, 'aria-current': group === c.name ? 'page' : false }, catGlyph(c.name), c.name))]) : null;
 
-    app.replaceChildren(
-      guide(FARM_CHAR[farm.slug] || 'posso-ajudar', farm.name, inList ? '' : 'Escolha um grupo de benefícios ou procure pelo nome.'),
-      h('div', { class: 'searchbar' }, input), countMsg, chips || '', results);
+    const head = guide(FARM_CHAR[farm.slug] || 'posso-ajudar', farm.name, inList ? '' : 'Escolha um grupo de benefícios ou procure pelo nome.');
+    if (!inList && voices && voices.intro) head.append(voiceButton(voices.intro, 'Ouvir as instruções desta localidade'));
+    app.replaceChildren(head, h('div', { class: 'searchbar' }, input), countMsg, chips || '', results);
     render();
   }
 
