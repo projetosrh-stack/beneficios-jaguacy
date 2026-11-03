@@ -154,3 +154,40 @@ details.more p { margin: 0; white-space: pre-wrap; font-size: .94rem; }
 .mini .gl, .mini svg { width: 22px; height: 22px; }
 .tilewrap .mini { align-self: center; }
 @media (min-width: 1000px) { .mini { min-width: 60px; min-height: 60px; } .mini svg { width: 26px; height: 26px; } }
+/* ===== Visual no estilo dos posts da Jaguacy: fundo verde, título branco grosso, etiqueta vermelha ===== */
+body { background: linear-gradient(120deg, #2a6f24 0%, #4f9021 45%, #9fb81c 100%) fixed; font-family: "Century Gothic", "Poppins", "Segoe UI", system-ui, sans-serif; }
+.top { background: transparent; border-bottom: 0; box-shadow: none; position: static; }
+.top .chip { background: transparent; color: #fff; border-color: #fff; }
+.brand img { height: 78px; }
+main:focus, main:focus-visible { outline: none; }
+.guide.hero { background: transparent; border: 0; padding: 4px 8px; align-items: flex-end; margin-bottom: 26px; }
+.guide .crew img { filter: drop-shadow(0 8px 10px rgba(5, 35, 8, .35)); }
+.hero .bubble { padding-bottom: 28px; }
+.hero .bubble::before { content: "PORTAL DE"; display: inline-block; background: #d63a1c; color: #fff; font-weight: 800; letter-spacing: .5px; padding: 8px 22px; border-radius: 6px; font-size: 1.05rem; margin-bottom: 14px; }
+.hero .bubble h1 { color: #fff; font-size: 3.4rem; font-weight: 900; line-height: 1.02; margin: 0 0 12px; -webkit-text-stroke: 1px #fff; }
+.hero .bubble p { color: #f1f8dc; font-size: 1.25rem; }
+.tile { border: 0; box-shadow: 0 6px 16px rgba(5, 40, 8, .22); }
+.tile .tname { font-weight: 800; }
+.mini { background: #d63a1c; }
+.mini:hover { background: #b92f15; }
+.badge { background: #eef6e3; border-color: #cfe0c4; }
+.farm-grid { gap: 16px; }
+.chips .chip:not(.on) { background: #fff; }
+.card { border: 0; box-shadow: 0 6px 16px rgba(5, 40, 8, .22); }
+@media (max-width: 700px) {
+  .brand img { height: 56px; }
+  .hero .bubble h1 { font-size: 2.1rem; }
+  .hero .bubble p { font-size: 1rem; }
+  .hero .bubble::before { font-size: .85rem; padding: 6px 16px; margin-bottom: 10px; }
+  .guide.hero { flex-direction: column; align-items: flex-start; }
+  .hero .mini { align-self: flex-start; }
+}
+@media (max-width: 700px) {
+  .farm-grid, .cat-grid, .list { grid-template-columns: minmax(0, 1fr); }
+  .tilewrap { min-width: 0; }
+  .tilewrap .tile { padding: 10px 12px; column-gap: 10px; grid-template-columns: 40px 1fr auto; }
+  .tile .ico { width: 40px; height: 40px; }
+  .tile .tname { font-size: 1.05rem; }
+  .tile .tfoot .go { display: none; }
+  .tile .badge { font-size: .72rem; padding: 1px 8px; }
+}
